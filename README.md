@@ -90,8 +90,8 @@ print(resultado)
 
 
 ```
-38.62% survived
-61.38% did not survive
+38.38% survived
+61.62% did not survive
 
 <table>
   <tr>
