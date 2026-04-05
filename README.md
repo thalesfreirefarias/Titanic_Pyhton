@@ -80,20 +80,28 @@ plt.show()
 ###  What is the percentage of survivors?
 
 ```
-SELECT 
-    survived,
-    COUNT(*) AS total,
-    ROUND(
-        COUNT(*) * 100.0 / SUM(COUNT(*)) OVER(),
-        2
-    ) AS porcentagem
-FROM TitanicDataset
-GROUP BY survived;
+resultado = df.groupby('Survived').size().reset_index(name='total')
+
+resultado['porcentagem'] = round(
+    resultado['total'] * 100.0 / resultado['total'].sum(), 2
+)
+
+print(resultado)
 
 
 ```
 38.62% survived
 61.38% did not survive
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="#" title="Age">
+        <img src="2.png" width="1000" alt="Percentage"/><br>
+      </a>
+    </td>
+  </tr>
+</table>
 
 ----
 
