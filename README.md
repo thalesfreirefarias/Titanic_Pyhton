@@ -1,4 +1,4 @@
-# Titanic_Pyhton
+# Titanic_Python
 New version of Titanic project but in Python
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/iuricode/README-template?style=for-the-badge)
