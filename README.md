@@ -31,6 +31,7 @@ total_passengers = df.shape[0]
 print(total_passengers)
 ```
 
+
 ---
 
 ## 🚨 Survival Analysis
@@ -44,6 +45,18 @@ print(result)
 
 * 549 passengers did not survive
 * 342 passengers survived
+
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="#" title="Age">
+        <img src="1.png" width="1000" alt="Passengers"/><br>
+      </a>
+    </td>
+  </tr>
+</table>
+
 
 ```python
 import matplotlib.pyplot as plt
@@ -65,6 +78,16 @@ plt.xticks(rotation=0)
 plt.show()
 ```
 
+<table>
+  <tr>
+    <td align="center">
+      <a href="#" title="Age">
+        <img src="2.png" width="1000" alt="Survived"/><br>
+      </a>
+    </td>
+  </tr>
+</table>
+
 ---
 
 ### 📈 Survival Percentage
@@ -85,6 +108,17 @@ print(result)
 sex_counts = df['Sex'].value_counts()
 print(sex_counts)
 ```
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="#" title="Age">
+        <img src="3.png" width="1000" alt="Sex"/><br>
+      </a>
+    </td>
+  </tr>
+</table>
+
 
 ---
 
