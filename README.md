@@ -1,257 +1,208 @@
-# Titanic_Python
-New version of Titanic project but in Python
+# 🚢 Titanic Analysis (Python Project)
 
-![GitHub repo size](https://img.shields.io/github/repo-size/iuricode/README-template?style=for-the-badge)
-![GitHub language count](https://img.shields.io/github/languages/count/iuricode/README-template?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/iuricode/README-template?style=for-the-badge)
-![Bitbucket open issues](https://img.shields.io/bitbucket/issues/iuricode/README-template?style=for-the-badge)
-![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/iuricode/README-template?style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/SEU_USER/SEU_REPO?style=for-the-badge)
+![GitHub language count](https://img.shields.io/github/languages/count/SEU_USER/SEU_REPO?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/SEU_USER/SEU_REPO?style=for-the-badge)
+![GitHub issues](https://img.shields.io/github/issues/SEU_USER/SEU_REPO?style=for-the-badge)
 
 ---
 
-### Project Introduction 
-By analyzing the Titanic dataset, I aim to identify the key factors that influenced passenger survival during the disaster.
-The analysis focuses on variables such as gender, passenger class, age, and embarkation point to understand patterns and differences in survival rates.
+## 📌 Project Overview
 
-The goal of this project is to apply SQL queries to extract meaningful insights and simulate real-world data analysis scenarios, supporting data-driven conclusions.
+This project explores the Titanic dataset using Python (Pandas, Matplotlib) to identify the key factors that influenced passenger survival.
 
-Data Quality Note: Missing values were identified in the Age and Cabin columns. These were considered during the analysis, with null values handled appropriately to avoid distortion in the results.
+The analysis focuses on variables such as:
+
+* Gender
+* Passenger class
+* Age
+* Embarkation port
+
+The goal is to simulate a real-world data analysis scenario and extract meaningful insights to support data-driven decisions.
+
+---
+
+## 📊 Dataset Information
+
+The dataset contains 891 passengers.
+
+```python
+total_passengers = df.shape[0]
+print(total_passengers)
+```
 
 ---
 
+## 🚨 Survival Analysis
 
-### How many passengers are in the Titanic dataset?
+### How many passengers survived?
 
-```
-total_passageiros = df.shape[0]
-print(total_passageiros)
-```
-
-The Titanic dataset contains 891 passengers.
-
----
-### How many passengers survived and did not survive?
-
-```
-resultado = df.groupby('Survived').size().reset_index(name='total')
-
-print(resultado)
+```python
+result = df['Survived'].value_counts().sort_index()
+print(result)
 ```
 
-In this dataset:
+* 549 passengers did not survive
+* 342 passengers survived
 
-0 = did not survive
-1 = survived
+```python
+import matplotlib.pyplot as plt
 
-A total of 549 passengers did not survive, while 342 survived.
-```
-resultado = df['Survived'].value_counts().sort_index()
+result = df['Survived'].value_counts().sort_index()
 
-ax = resultado.plot(kind='bar', color=['red', 'green'])
+ax = result.plot(kind='bar')
 
-total = resultado.sum()
+total = result.sum()
 
-for i, v in enumerate(resultado):
-    porcentagem = (v / total) * 100
-    ax.text(i, v, f'{v} ({porcentagem:.1f}%)', ha='center')
+for i, v in enumerate(result):
+    percentage = (v / total) * 100
+    ax.text(i, v, f'{v} ({percentage:.1f}%)', ha='center')
 
-plt.title('Sobrevivência no Titanic')
-plt.xlabel('0 = Não | 1 = Sim')
+plt.title('Titanic Survival')
+plt.xlabel('0 = No | 1 = Yes')
 plt.ylabel('Total')
-
 plt.xticks(rotation=0)
-
 plt.show()
 ```
 
-<table>
-  <tr>
-    <td align="center">
-      <a href="#" title="Age">
-        <img src="1.png" width="1000" alt="Titanic Survived"/><br>
-      </a>
-    </td>
-  </tr>
-</table>
+---
 
+### 📈 Survival Percentage
+
+```python
+result = df['Survived'].value_counts(normalize=True) * 100
+print(result)
+```
+
+* 38.38% survived
+* 61.62% did not survive
 
 ---
 
-###  What is the percentage of survivors?
+## 👨‍👩‍👧 Gender Distribution
 
-```
-resultado = df.groupby('Survived').size().reset_index(name='total')
-
-resultado['porcentagem'] = round(
-    resultado['total'] * 100.0 / resultado['total'].sum(), 2
-)
-
-print(resultado)
-
-
-```
-38.38% survived
-61.62% did not survive
-
-<table>
-  <tr>
-    <td align="center">
-      <a href="#" title="Age">
-        <img src="2.png" width="1000" alt="Percentage"/><br>
-      </a>
-    </td>
-  </tr>
-</table>
-
-----
-
-### How many men and women were on the Titanic?
-```
+```python
 sex_counts = df['Sex'].value_counts()
-sex_counts
+print(sex_counts)
 ```
+
+---
+
+## 🚢 Embarkation Ports
+
+```python
+embarked_counts = df['Embarked'].value_counts(dropna=False)
+print(embarked_counts)
+```
+
+* C (Cherbourg): 168 passengers
+* Q (Queenstown): 77 passengers
+* S (Southampton): 644 passengers
+* Missing: 2 passengers
+
+---
+
+## ⚖️ Survival by Gender
+
+```python
+survival_by_gender = df.groupby(['Sex', 'Survived']).size().unstack()
+print(survival_by_gender)
+```
+
+* Approximately 74% of females survived
+* Approximately 19% of males survived
+
+---
+
+## 🏷️ Passengers by Class
+
+```python
+class_counts = df['Pclass'].value_counts().sort_index()
+print(class_counts)
+```
+
+* 1st Class: 216 passengers
+* 2nd Class: 184 passengers
+* 3rd Class: 491 passengers
+
+---
+
+## 📊 Survival by Class
+
+```python
+survival_by_class = df.groupby(['Pclass', 'Survived']).size().unstack()
+print(survival_by_class)
+```
+
+* 1st Class: 136 survived
+* 2nd Class: 87 survived
+* 3rd Class: 119 survived
+
+---
+
+## 📉 Survival Rate by Class (%)
+
+```python
+survival_rate_class = df.groupby('Pclass')['Survived'].mean() * 100
+print(survival_rate_class)
+```
+
+* 1st Class: ~63%
+* 2nd Class: ~47%
+* 3rd Class: ~24%
+
+---
+
+## 🎂 Age Analysis
+
+```python
+mean_age = df['Age'].mean()
+max_age = df['Age'].max()
+min_age = df['Age'].min()
+
+print(mean_age, max_age, min_age)
+```
+
+---
+
+## 🧠 Key Insights
+
+* Survival was strongly influenced by gender and social class
+* Women had a significantly higher survival rate than men
+* First-class passengers had better survival chances
+* Socioeconomic factors played a major role in survival
+
+---
+
+## ⚠️ Data Quality
+
+* Missing values were found in:
+
+  * Age
+  * Cabin
+
+These were handled appropriately during the analysis.
+
+---
+
+## 🛠️ Technologies Used
+
+* Python
+* Pandas
+* Matplotlib
+* Google Colab
+
+---
+
+## 🤝 Author
 
 <table>
   <tr>
     <td align="center">
-      <a href="#" title="Age">
-        <img src="3.png" width="1000" alt="Man and woman count/><br>
+      <a href="https://www.linkedin.com/in/thalesfreirefarias/" target="_blank">
+        <img src="grecia.jpg" width="100" alt="Thales Farias"/><br>
+        <sub><b>Thales Farias</b></sub>
       </a>
     </td>
   </tr>
 </table>
-
----
-
-### How many passengers embarked at each port?
-```
-select embarked, COUNT(*) 
-from TitanicDataset
-as total
-group by embarked;
-C 168 (France) Rich 
-Q  77 (Newzeland) poor
-S 644 (England) General
-nULL 2
-
-```
-C (Cherbourg, France): 168 passengers
-Q (Queenstown, Ireland): 77 passengers
-S (Southampton, England): 644 passengers
-NULL: 2 passengers (missing data)
-
----
-
-### How many survived by gender?
-```
-
-SELECT 
-    sex,
-    survived,
-    COUNT(*) AS total,
-    ROUND(
-        COUNT(*) * 100.0 / SUM(COUNT(*)) OVER(PARTITION BY sex),
-        2
-    ) AS percentage
-FROM TitanicDataset
-GROUP BY sex, survived
-ORDER BY sex, survived;
-```
-Survival rates differ significantly by gender. 
-Approximately 74% of females survived, while only about 19% of males survived.
-
-
----
-### how many passenger by class
-```
-select pclass, count(*) as  total 
-from TitanicDataset
-group by pclass;
-```
-A total of 216 passengers were in 1st class, 
-184 in 2nd class, and 491 in 3rd class.
-
----
-### how many passenger survived by class?
-```
-SELECT 
-    pclass,
-    survived,
-    COUNT(*) AS total,
-        ROUND(
-        COUNT(*) * 100.0 / SUM(COUNT(*)) OVER(),
-        2
-    ) AS porcentagem
-FROM TitanicDataset
-GROUP BY pclass, survived
-ORDER BY pclass, survived;
-
-```
-A total of 136 passengers survived in 1st class, 
-87 in 2nd class, and 119 in 3rd class.
-
----
-
-### how the percenge by class(%)
-```
-SELECT 
-    pclass,
-    survived,
-    COUNT(*) AS total,
-    ROUND(
-        COUNT(*) * 100.0 / SUM(COUNT(*)) OVER(PARTITION BY pclass),
-        2
-    ) AS survival_rate
-FROM TitanicDataset
-GROUP BY pclass, survived
-ORDER BY pclass, survived;
-```
-Survival rates vary significantly by class. 
-Passengers in 1st class had the highest survival rate (~63%), 
-followed by 2nd class (~47%), while 3rd class had the lowest (~24%). 
-This suggests that socioeconomic status played an important role in survival.
-
----
- ### What is the average age of passengers?
-
-```
-SELECT 
-    round(AVG(age)) AS mean,
-    MAX(age) AS max_age,
-    MIN(age) AS min_age
-FROM TitanicDataset;
-```
----
-
-Overview: The analysis shows that survival was strongly influenced by gender and class. 
-Women and first-class passengers had significantly higher survival rates, suggesting that social status and evacuation priorities played a key role.
-
-
-### Adjustments and improvements.
-
-The project is still under development, and the upcoming updates will focus on the following tasks:
-
-- [x] Advanced courses about SQL
-
-The following tools were used in the construction of the project:
-
-- [Phyton](<[[https://www.python.org/doc//](https://sqliteonline.com/](https://www.python.org/))>)
-- [Google colab](<https://colab.google/>)
-
-
-
-## 🤝 Creator
-
-<table>
-  <tr>
-    <td align="center">
-      <a href="#" title="Thales Farias">
-        <img src="grecia.jpg" width="100" alt="Foto do Thales Farias no GitHub"/><br>
-        <sub>
-          <b><a href="https://www.linkedin.com/in/thalesfreirefarias/" target="_blank">Thales Farias</b>
-        </sub>
-      </a>
-    </td>
-  </tr>
-</table>
-
