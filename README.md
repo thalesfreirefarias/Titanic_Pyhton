@@ -107,13 +107,20 @@ print(resultado)
 
 ### How many men and women were on the Titanic?
 ```
-SELECT sex, COUNT(*) as total
-FROM TitanicDataset
-GROUP BY sex
-
-
+sex_counts = df['Sex'].value_counts()
+sex_counts
 ```
-Approximately 64.76% of the passengers were male.
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="#" title="Age">
+        <img src="3.png" width="1000" alt="Man and woman count/><br>
+      </a>
+    </td>
+  </tr>
+</table>
+
 ---
 
 ### How many passengers embarked at each port?
