@@ -194,7 +194,7 @@ mean_age = df['Age'].mean()
 max_age = df['Age'].max()
 min_age = df['Age'].min()
 
-print(mean_age, max_age, min_age)
+print('Mean age:', round(mean_age), 'Max age:', round(max_age), 'Min age:', min_age)
 ```
 
 ---
